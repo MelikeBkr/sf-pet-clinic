@@ -1,11 +1,9 @@
 package mel.springframework.sfpetclinic.bootstrap;
 
-import mel.springframework.sfpetclinic.model.Owner;
-import mel.springframework.sfpetclinic.model.Pet;
-import mel.springframework.sfpetclinic.model.PetType;
-import mel.springframework.sfpetclinic.model.Vet;
+import mel.springframework.sfpetclinic.model.*;
 import mel.springframework.sfpetclinic.services.OwnerService;
 import mel.springframework.sfpetclinic.services.PetTypeService;
+import mel.springframework.sfpetclinic.services.SpecialityService;
 import mel.springframework.sfpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,16 +16,26 @@ public class DataInitializer implements CommandLineRunner
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
-    public DataInitializer(OwnerService ownerService, VetService vetService,PetTypeService petTypeService) {
+    public DataInitializer(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws Exception
+    {
+        int count = petTypeService.findAll().size();
+        if(count==0)
+        {
+            initializeData();
+        }
+    }
 
+    private void initializeData() {
         PetType dog = new PetType();
         dog.setName("Dog");
         PetType savedDogPetType = petTypeService.save(dog);
@@ -35,6 +43,18 @@ public class DataInitializer implements CommandLineRunner
         PetType cat = new PetType();
         cat.setName("Cat");
         PetType savedCatPetType = petTypeService.save(cat);
+
+        Speciality radiology = new Speciality();
+        radiology.setDescription("Radiology");
+        Speciality savedRadiology = specialityService.save(radiology);
+
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+        Speciality savedSurgery = specialityService.save(surgery);
+
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
+        Speciality savedDentistry = specialityService.save(dentistry);
 
         Owner owner1 = new Owner();
         owner1.setId(1L);
@@ -74,16 +94,17 @@ public class DataInitializer implements CommandLineRunner
         vet1.setId(1L);
         vet1.setFirstName("Mikasa");
         vet1.setLastName("Ackerman");
+        vet1.getSpecialities().add(savedRadiology);
 
         Vet vet2 = new Vet();
         vet2.setId(2L);
         vet2.setFirstName("Armin");
         vet2.setLastName("Arlert");
+        vet2.getSpecialities().add(savedSurgery);
 
         vetService.save(vet1);
         vetService.save(vet2);
 
         System.out.println("Loaded Vets...");
-
     }
 }
