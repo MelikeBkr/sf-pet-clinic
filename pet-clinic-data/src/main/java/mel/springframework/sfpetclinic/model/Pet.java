@@ -1,5 +1,8 @@
 package mel.springframework.sfpetclinic.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -12,6 +15,8 @@ public class Pet extends BaseEntity {
     private String name;
     @ManyToOne
     @JoinColumn(name="type_id")
+    @NotFound(
+            action = NotFoundAction.IGNORE)
     private PetType type;
     @ManyToOne
     @JoinColumn(name="owner_id")

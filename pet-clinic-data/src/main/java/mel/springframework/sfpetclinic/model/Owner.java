@@ -1,5 +1,8 @@
 package mel.springframework.sfpetclinic.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +17,7 @@ public class Owner extends Person{
     @Column(name="telephone")
     private String telephone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @NotFound(action = NotFoundAction.IGNORE)
     private Set<Pet> pets = new HashSet<>();
 
     public String getAddress() {
