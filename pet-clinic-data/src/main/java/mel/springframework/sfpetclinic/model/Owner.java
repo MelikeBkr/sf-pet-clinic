@@ -1,23 +1,24 @@
 package mel.springframework.sfpetclinic.model;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
-@Table(name="owners")
-public class Owner extends Person{
-    @Column(name="address")
+@Table(name = "owners")
+public class Owner extends Person {
+
+    @Column(name = "address")
     private String address;
-    @Column(name="city")
+
+    @Column(name = "city")
     private String city;
-    @Column(name="telephone")
+
+    @Column(name = "telephone")
     private String telephone;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    @NotFound(action = NotFoundAction.IGNORE)
     private Set<Pet> pets = new HashSet<>();
 
     public String getAddress() {

@@ -6,10 +6,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+
 @Service
 @Profile({"default","map"})
-public class SpecialityMapService extends AbstractMapService<Speciality,Long> implements SpecialityService
-{
+public class SpecialityMapService extends AbstractMapService<Speciality, Long> implements SpecialityService {
+
     @Override
     public Set<Speciality> findAll() {
         return super.findAll();
@@ -26,14 +27,12 @@ public class SpecialityMapService extends AbstractMapService<Speciality,Long> im
     }
 
     @Override
-    public void delete(Speciality object)
-    {
+    public void delete(Speciality object) {
         super.delete(object);
     }
 
     @Override
-    public void deleteById(Long id)
-    {
+    public void deleteById(Long id) {
         super.deleteById(id);
     }
 }

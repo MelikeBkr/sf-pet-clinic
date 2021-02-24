@@ -11,42 +11,38 @@ import java.util.Set;
 
 @Service
 @Profile("springdatajpa")
-public class SpecialitySDJpaService implements SpecialityService
-{
-    private SpecialityRepository specialityRepository;
+public class SpecialitySDJpaService implements SpecialityService {
 
-    public SpecialitySDJpaService(SpecialityRepository specialityRepository) {
-        this.specialityRepository = specialityRepository;
+    private final SpecialityRepository specialtyRepository;
+
+    public SpecialitySDJpaService(SpecialityRepository specialtyRepository) {
+        this.specialtyRepository = specialtyRepository;
     }
 
     @Override
-    public Set<Speciality> findAll()
-    {
+    public Set<Speciality> findAll() {
         Set<Speciality> specialities = new HashSet<>();
-        specialityRepository.findAll().forEach(specialities::add);
+        specialtyRepository.findAll().forEach(specialities::add);
         return specialities;
     }
 
     @Override
-    public Speciality findById(Long aLong)
-    {
-        return specialityRepository.findById(aLong).orElse(null);
+    public Speciality findById(Long aLong) {
+        return specialtyRepository.findById(aLong).orElse(null);
     }
 
     @Override
     public Speciality save(Speciality object) {
-        return specialityRepository.save(object);
+        return specialtyRepository.save(object);
     }
 
     @Override
-    public void delete(Speciality object)
-    {
-        specialityRepository.delete(object);
+    public void delete(Speciality object) {
+        specialtyRepository.delete(object);
     }
 
     @Override
-    public void deleteById(Long aLong)
-    {
-        specialityRepository.deleteById(aLong);
+    public void deleteById(Long aLong) {
+        specialtyRepository.deleteById(aLong);
     }
 }
