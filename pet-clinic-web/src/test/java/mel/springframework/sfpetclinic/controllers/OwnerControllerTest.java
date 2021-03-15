@@ -63,7 +63,7 @@ class OwnerControllerTest
     void findOwners() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/owners/find"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("notimplemented"));
+                .andExpect(MockMvcResultMatchers.view().name("owners/findOwners"));
         Mockito.verifyZeroInteractions(ownerService);
     }
     @Test
